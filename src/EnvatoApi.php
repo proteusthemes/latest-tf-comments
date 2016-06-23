@@ -49,12 +49,13 @@ class EnvatoApi  {
 	}
 
 	// GET http request, with predefined $this->client
-	protected function get( $endpoint ) {
+	protected function get( $endpoint, array $query_params = [] ) {
 		try {
 			$response = $this->client->get( $endpoint, [
 				'headers'   => [
 					'Authorization' => sprintf( 'Bearer %s', $this->access_token ),
 				],
+				'query' => $query_params
 			] );
 		} catch ( RequestException $e ) {
 			$msg = sprintf( 'Error when doing GET to Envato API: %s', $e->getMessage() );
@@ -71,9 +72,7 @@ class EnvatoApi  {
 
 	public function getItemIdsByAuthor( $username = 'ProteusThemes' ) {
 		$response = $this->get( '/v1/discovery/search/search/item', [
-			'query' => [
-				'username' => $username
-			],
+			'username' => $username
 		] );
 
 		$out = array_map( function( $item ) {
@@ -109,11 +108,9 @@ class EnvatoApi  {
 
 	public function getLastCommentsByItemId( $itemId ) {
 		$response = $this->get( '/v1/discovery/search/search/comment', [
-			'query' => [
-				'item_id'   => $itemId,
-				'page_size' => 15,
-				'sort_by'   => 'newest',
-			]
+			'item_id'   => $itemId,
+			'page_size' => 15,
+			'sort_by'   => 'newest',
 		] );
 
 		$out = array_map( function( $comment ) {

@@ -16,48 +16,27 @@ use \ProteusThemes\TfComments\EnvatoApi;
  * @var EnvatoApi
  */
 $envatoApi = new EnvatoApi( getenv( 'ENVATO_SECRET_TOKEN' ) );
-$items = $envatoApi->getItemIds();
+$unansweredComments = $envatoApi->getAllUnansweredQuestionsByUsers( [ 'ProteusThemes', 'ProteusSupport' ] );
+
+usort( $unansweredComments, function( $comment1, $comment2 ) {
+	$time1 = strtotime( $comment1['last_comment_at'] );
+	$time2 = strtotime( $comment2['last_comment_at'] );
+
+	if ( $time1 === $time2 ) {
+		return 0;
+	}
+
+	return $time1 > $time2 ? -1 : 1;
+} );
+
+$unansweredCommentsLastMonth = array_filter( $unansweredComments, function( $comment ) {
+	$time = strtotime( $comment['last_comment_at'] );
+
+	return $time > ( time() - 31*24*60*60 ); // one month approx.
+} );
 
 echo '<ul>';
-foreach ($items as $itemId) {
-	printf( '<li>%s</li>', $itemId );
+foreach ( $unansweredCommentsLastMonth as $comment ) {
+	printf( '<li><a href="http://themeforest.net/comments/%1$s">Comment</a> by <a href="http://themeforest.net/user/%2$s">%2$s</a>  at %3$s</li>', $comment['comment_id'], $comment['username'], $comment['last_comment_at'] );
 }
 echo '</ul>';
-
-die();
-
-/**
- * See https://github.com/zendesk/zendesk_jwt_sso_examples/blob/master/php_jwt.php
- */
-
-$key   = $config['zendesk_shared_secret'];
-$now   = time();
-$token = [
-	'jti'         => md5( $now . mt_rand() ),
-	'iat'         => $now,
-	'name'        => $EnvatoApi->get_name(),
-	'email'       => $EnvatoApi->get_email(),
-	'tags'        => [ 'username_' . $EnvatoApi->get_username() ],
-	'user_fields' => [
-		'bought_themes'    => $EnvatoApi->get_bought_items_string(),
-		'supported_themes' => $EnvatoApi->get_supported_items_string(),
-		'tf_username'      => $EnvatoApi->get_username(),
-		'country'          => $EnvatoApi->get_country(),
-	],
-];
-
-$jwt = JWT::encode( $token, $key );
-$location = sprintf( 'https://%s.zendesk.com/access/jwt?jwt=%s', $config['zendesk_subdomain'], $jwt );
-
-if( ! empty( $_SESSION['zendesk_return_to'] ) ) {
-	$location .= sprintf( '&return_to=%s', urlencode( $_SESSION['zendesk_return_to'] ) );
-}
-
-// Redirect
-if ( 'true' !== getenv( 'ZEL_DEBUG' ) ) {
-	header( 'Location: ' . $location );
-	exit;
-}
-else {
-	print_r( $token );
-}
