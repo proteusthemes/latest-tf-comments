@@ -102,6 +102,32 @@ class EnvatoApi  {
 	}
 
 	public function getLastCommentsByItemId( $itemId ) {
-		# code...
+		$response = $this->get( '/v1/discovery/search/search/comment', [
+			'query' => [
+				'item_id'   => $itemId,
+				'page_size' => 15,
+				'sort_by'   => 'newest',
+			]
+		] );
+
+		$out = array_map( function( $comment ) {
+			$participants = array_map( function( $reply ) {
+				return $reply->username;
+			}, $comment->conversation );
+
+			$participants = array_unique( $participants );
+
+			return [
+				'comment_id'      => intval( $comment->id ),
+				'item_id'         => intval( $comment->item_id ),
+				'username'        => $comment->conversation[0]->username,
+				'url'             => $comment->url,
+				'created_at'      => $comment->conversation[0]->created_at,
+				'last_comment_at' => $comment->last_comment_at,
+				'participants'    => $participants,
+			];
+		}, $response->matches );
+
+		return $out;
 	}
 }
