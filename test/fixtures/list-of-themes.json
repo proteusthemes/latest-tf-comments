@@ -2,16 +2,16 @@
 	"took": 6,
 	"matches": [
 		{
-			"id": 6779086,
-			"name": "Organique - HTML Template For Healthy Food Store"
-		},
-		{
 			"id": 9323981,
 			"name": "BuildPress - Construction Business WP Theme"
 		},
 		{
 			"id": 15194530,
 			"name": "Auto - Ideal Car Mechanic and Auto Repair Template for WordPress"
+		},
+		{
+			"id": 6779086,
+			"name": "Organique - HTML Template For Healthy Food Store"
 		}
 	],
 	"timed_out": false,

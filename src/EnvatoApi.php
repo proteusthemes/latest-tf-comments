@@ -83,22 +83,28 @@ class EnvatoApi  {
 		return $out;
 	}
 
-	public function getAllUnansweredQuestions() {
+	public function getAllUnansweredQuestionsByUsers( array $blackListUsernames ) {
 		$comments = [];
 
 		$itemIds = $this->getItemIdsByAuthor( 'ProteusThemes' );
 
-		foreach ($itemIds as $itemId) {
-			$comments += $this->getLastCommentsByItemId( $itemId );
+		foreach ( $itemIds as $itemId ) {
+			$comments = array_merge( $comments, $this->getLastCommentsByItemId( $itemId ) );
 		}
 
-		$unanswered_questions = $this->returnCommentsWithoutParticipants( ['ProteusThemes', 'ProteusSupport'] );
+		$unanswered_questions = $this->getCommentsWithoutLastAnswerByUsers( $comments, $blackListUsernames );
 
 		return $unanswered_questions;
 	}
 
-	public function returnCommentsWithoutParticipants( $blackListUsernames = [] ) {
-		# code...
+	public function getCommentsWithoutLastAnswerByUsers( array $allComments, array $blackListUsernames ) {
+		$out = array_filter( $allComments, function( $comment ) use ( $blackListUsernames ) {
+			return ! in_array( $comment['last_reply_by'], $blackListUsernames );
+		} );
+
+		$out = array_values( $out );
+
+		return $out;
 	}
 
 	public function getLastCommentsByItemId( $itemId ) {
@@ -125,6 +131,7 @@ class EnvatoApi  {
 				'created_at'      => $comment->conversation[0]->created_at,
 				'last_comment_at' => $comment->last_comment_at,
 				'participants'    => $participants,
+				'last_reply_by'   => end( $comment->conversation )->username,
 			];
 		}, $response->matches );
 
