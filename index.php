@@ -35,6 +35,10 @@ $unansweredCommentsLastMonth = array_filter( $unansweredComments, function( $com
 	return $time > ( time() - 31*24*60*60 ); // one month approx.
 } );
 
+if ( empty( $unansweredCommentsLastMonth ) ) {
+	die( 'Everything replied, good job captain!' );
+}
+
 echo '<ul>';
 foreach ( $unansweredCommentsLastMonth as $comment ) {
 	printf( '<li><a href="http://themeforest.net/comments/%1$s">Comment</a> by <a href="http://themeforest.net/user/%2$s">%2$s</a>  at %3$s</li>', $comment['comment_id'], $comment['username'], $comment['last_comment_at'] );
