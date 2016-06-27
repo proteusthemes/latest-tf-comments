@@ -32,7 +32,7 @@ usort( $unansweredComments, function( $comment1, $comment2 ) {
 $unansweredCommentsLastMonth = array_filter( $unansweredComments, function( $comment ) {
 	$time = strtotime( $comment['last_comment_at'] );
 
-	return $time > ( time() - 31*24*60*60 ); // one month approx.
+	return $time > ( time() - 31 * 24 * 60 * 60 ); // one month approx.
 } );
 
 if ( empty( $unansweredCommentsLastMonth ) ) {
