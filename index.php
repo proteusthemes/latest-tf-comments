@@ -16,7 +16,7 @@ use \ProteusThemes\TfComments\EnvatoApi;
  * @var EnvatoApi
  */
 $envatoApi = new EnvatoApi( getenv( 'ENVATO_SECRET_TOKEN' ) );
-$unansweredComments = $envatoApi->getAllUnansweredQuestionsByUsers( [ 'ProteusThemes', 'ProteusSupport' ] );
+$unansweredComments = $envatoApi->getAllUnansweredQuestionsByUsers( [ 'ProteusThemes', 'ProteusSupport', 'ProteusThemesNX' ] );
 
 usort( $unansweredComments, function( $comment1, $comment2 ) {
 	$time1 = strtotime( $comment1['last_comment_at'] );

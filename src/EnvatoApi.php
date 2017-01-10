@@ -86,8 +86,13 @@ class EnvatoApi  {
 		$comments = [];
 
 		$itemIds = $this->getItemIdsByAuthor( 'ProteusThemes' );
+		$itemIds2 = $this->getItemIdsByAuthor( 'ProteusThemesNX' );
 
 		foreach ( $itemIds as $itemId ) {
+			$comments = array_merge( $comments, $this->getLastCommentsByItemId( $itemId ) );
+		}
+
+		foreach ( $itemIds2 as $itemId ) {
 			$comments = array_merge( $comments, $this->getLastCommentsByItemId( $itemId ) );
 		}
 
