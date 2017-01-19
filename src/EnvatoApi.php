@@ -82,17 +82,12 @@ class EnvatoApi  {
 		return $out;
 	}
 
-	public function getAllUnansweredQuestionsByUsers( array $blackListUsernames ) {
+	public function getAllUnansweredQuestionsByUsers( array $blackListUsernames, $tfAuthor = 'ProteusThemes' ) {
 		$comments = [];
 
-		$itemIds = $this->getItemIdsByAuthor( 'ProteusThemes' );
-		$itemIds2 = $this->getItemIdsByAuthor( 'ProteusThemesNX' );
+		$itemIds = $this->getItemIdsByAuthor();
 
 		foreach ( $itemIds as $itemId ) {
-			$comments = array_merge( $comments, $this->getLastCommentsByItemId( $itemId ) );
-		}
-
-		foreach ( $itemIds2 as $itemId ) {
 			$comments = array_merge( $comments, $this->getLastCommentsByItemId( $itemId ) );
 		}
 
