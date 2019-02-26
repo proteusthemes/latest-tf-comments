@@ -109,7 +109,7 @@ class EnvatoApi  {
 	public function getLastCommentsByItemId( $itemId ) {
 		$response = $this->get( '/v1/discovery/search/search/comment', [
 			'item_id'   => $itemId,
-			'page_size' => 15,
+			'page_size' => 10,
 			'sort_by'   => 'newest',
 		] );
 
