@@ -19,7 +19,7 @@ $envatoApi = new EnvatoApi( getenv( 'ENVATO_SECRET_TOKEN' ) );
 $unansweredComments = $envatoApi->getAllUnansweredQuestionsByUsers( [ 'ProteusThemes', 'ProteusSupport' ] );
 $unansweredCommentsNx = $envatoApi->getAllUnansweredQuestionsByUsers( [ 'ProteusThemesNX', 'ProteusSupport', 'ProteusThemes' ], 'ProteusThemesNX' );
 
-$unansweredComments = $unansweredComments + $unansweredCommentsNx;
+$unansweredComments = array_merge( $unansweredComments, $unansweredCommentsNx );
 
 usort( $unansweredComments, function( $comment1, $comment2 ) {
 	$time1 = strtotime( $comment1['last_comment_at'] );

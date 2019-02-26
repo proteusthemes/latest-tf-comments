@@ -85,7 +85,7 @@ class EnvatoApi  {
 	public function getAllUnansweredQuestionsByUsers( array $blackListUsernames, $tfAuthor = 'ProteusThemes' ) {
 		$comments = [];
 
-		$itemIds = $this->getItemIdsByAuthor();
+		$itemIds = $this->getItemIdsByAuthor( $tfAuthor );
 
 		foreach ( $itemIds as $itemId ) {
 			$comments = array_merge( $comments, $this->getLastCommentsByItemId( $itemId ) );
