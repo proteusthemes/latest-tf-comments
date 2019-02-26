@@ -42,8 +42,32 @@ if ( empty( $unansweredCommentsLastMonth ) ) {
 	die( 'Everything replied, good job captain!' );
 }
 
-echo '<ul>';
+echo <<<EOH
+<html>
+<head>
+<title>Comments on ThemeForest to be answered</title>
+<style>
+body {font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; line-height: 1.4; color: #555; font-size: 120%}
+li {margin-bottom: 5px;}
+</style>
+</head>
+<body>
+<h1>Comments on ThemeForest to be answered:</h1>
+<ul>
+EOH;
+
 foreach ( $unansweredCommentsLastMonth as $comment ) {
-	printf( '<li><a href="http://themeforest.net/comments/%1$s">Comment</a> by <a href="http://themeforest.net/user/%2$s">%2$s</a>  at %3$s</li>', $comment['comment_id'], $comment['username'], $comment['last_comment_at'] );
+	printf(
+		'<li>User <a href="http://themeforest.net/user/%2$s">%2$s</a> commented on <a href="http://themeforest.net/comments/%1$s">%3$s</a> (%4$s)</li>',
+		$comment['comment_id'],
+		$comment['username'],
+		date( 'D, jS M \a\t g:i a', strtotime( $comment['last_comment_at'] ) ),
+		$comment['item_name']
+	);
 }
-echo '</ul>';
+
+echo <<<EOH
+</ul>
+</body>
+</html>
+EOH;

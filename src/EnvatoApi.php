@@ -123,6 +123,7 @@ class EnvatoApi  {
 			return [
 				'comment_id'      => intval( $comment->id ),
 				'item_id'         => intval( $comment->item_id ),
+				'item_name'       => $comment->item_name,
 				'username'        => $comment->conversation[0]->username,
 				'url'             => $comment->url,
 				'created_at'      => $comment->conversation[0]->created_at,
