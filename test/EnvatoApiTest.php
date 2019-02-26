@@ -8,10 +8,10 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Exception\RequestException;
 use ProteusThemes\TfComments\EnvatoApi;
 
-class EnvatoApiTest extends PHPUnit_Framework_TestCase {
+class EnvatoApiTest extends \PHPUnit\Framework\TestCase {
 	protected $itemsMock;
 
-	public function setUp() {
+	protected function setUp(): void {
 		date_default_timezone_set( 'UTC' );
 	}
 
@@ -37,6 +37,7 @@ class EnvatoApiTest extends PHPUnit_Framework_TestCase {
 			[
 				'comment_id'      => 13508762,
 				'item_id'         => 9323981,
+				'item_name'       => 'BuildPress - Construction Business WP Theme',
 				'username'        => '2simplesolutions',
 				'url'             => 'http://themeforest.net/item/buildpress-construction-business-wp-theme/9323981/comments',
 				'created_at'      => '2016-06-17T02:56:54+10:00',
@@ -47,6 +48,7 @@ class EnvatoApiTest extends PHPUnit_Framework_TestCase {
 			[
 				'comment_id'      => 9957983,
 				'item_id'         => 9323981,
+				'item_name'       => 'BuildPress - Construction Business WP Theme',
 				'username'        => 'rbezruchuk',
 				'url'             => 'http://themeforest.net/item/buildpress-construction-business-wp-theme/9323981/comments',
 				'created_at'      => '2015-05-10T15:44:10+10:00',
@@ -57,6 +59,7 @@ class EnvatoApiTest extends PHPUnit_Framework_TestCase {
 			[
 				'comment_id'      => 13490202,
 				'item_id'         => 9323981,
+				'item_name'       => 'BuildPress - Construction Business WP Theme',
 				'username'        => 'oddessit',
 				'url'             => 'http://themeforest.net/item/buildpress-construction-business-wp-theme/9323981/comments',
 				'created_at'      => '2016-06-15T05:47:19+10:00',
@@ -84,6 +87,7 @@ class EnvatoApiTest extends PHPUnit_Framework_TestCase {
 			[
 				'comment_id'      => 13508762,
 				'item_id'         => 9323981,
+				'item_name'       => 'BuildPress - Construction Business WP Theme',
 				'username'        => '2simplesolutions',
 				'url'             => 'http://themeforest.net/item/buildpress-construction-business-wp-theme/9323981/comments',
 				'created_at'      => '2016-06-17T02:56:54+10:00',
@@ -94,6 +98,7 @@ class EnvatoApiTest extends PHPUnit_Framework_TestCase {
 			[
 				'comment_id'      => 9957983,
 				'item_id'         => 9323981,
+				'item_name'       => 'BuildPress - Construction Business WP Theme',
 				'username'        => 'rbezruchuk',
 				'url'             => 'http://themeforest.net/item/buildpress-construction-business-wp-theme/9323981/comments',
 				'created_at'      => '2015-05-10T15:44:10+10:00',
@@ -106,6 +111,7 @@ class EnvatoApiTest extends PHPUnit_Framework_TestCase {
 			[
 				'comment_id'      => 9957983,
 				'item_id'         => 9323981,
+				'item_name'       => 'BuildPress - Construction Business WP Theme',
 				'username'        => 'rbezruchuk',
 				'url'             => 'http://themeforest.net/item/buildpress-construction-business-wp-theme/9323981/comments',
 				'created_at'      => '2015-05-10T15:44:10+10:00',
@@ -135,6 +141,7 @@ class EnvatoApiTest extends PHPUnit_Framework_TestCase {
 			[
 				'comment_id'      => 9957983,
 				'item_id'         => 9323981,
+				'item_name'       => 'BuildPress - Construction Business WP Theme',
 				'username'        => 'rbezruchuk',
 				'url'             => 'http://themeforest.net/item/buildpress-construction-business-wp-theme/9323981/comments',
 				'created_at'      => '2015-05-10T15:44:10+10:00',
@@ -145,6 +152,7 @@ class EnvatoApiTest extends PHPUnit_Framework_TestCase {
 			[
 				'comment_id'      => 13508762,
 				'item_id'         => 6779086,
+				'item_name'       => 'Organique - HTML Template For Healthy Food Store',
 				'username'        => '2simplesolutions',
 				'url'             => 'http://themeforest.net/item/organique/6779086/comments',
 				'created_at'      => '2016-06-17T02:56:54+10:00',
